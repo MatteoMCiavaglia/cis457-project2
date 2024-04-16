@@ -12,25 +12,25 @@ class ClickRedirectionValidator:
     def is_whitelisted(self, url):
         # Check if the domain name is whitelisted
         url_domain = self.remove_dynamic_part(url)
-        return any(url_domain == self.remove_dynamic_part(whitelisted_url) for whitelisted_url in self.whitelist)
+        return any(url_domain.startswith(whitelisted_url) for whitelisted_url in self.whitelist)
 
 # Example usage
 whitelist = [
-    "https://www.gvsuu.edu/fake-websi/te",
-    "https://www.nvidiia.com/832rnc7h/f347ty3owtd",
-    "https://www.michigan.gov/--72356huf",
-    "https://www.gvsu.edu/real/website",
-    "https://www.nvidia.com/dkm4k7ty/s37dtmo3s/8kdt8",
-    "https://www.miichigan.gov/49380/6tnfd09/736450dj9"
+    "https://www.gvsu.edu/",
+    "https://www.nvidia.com/",
+    "https://www.michigan.gov/"
 ]
 
 validator = ClickRedirectionValidator(whitelist)
 
 # Test URLs
 test_urls = [
-    "https://www.gvsu.edu/",
-    "https://www.nvidia.com/",
-    "https://www.michigan.gov/"
+    "https://www.gvsuu.edu/fake-websi/te",
+    "https://www.nvidiia.com/832rnc7h/f347ty3owtd",
+    "https://www.michigan.gov/--72356huf",
+    "https://www.gvsu.edu/real/website",
+    "https://www.nvidia.com/dkm4k7ty/s37dtmo3s/8kdt8",
+    "https://www.miichigan.gov/49380/6tnfd09/736450dj9"
 ]
 
 for url in test_urls:
