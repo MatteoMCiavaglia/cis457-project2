@@ -35,8 +35,18 @@ test_urls = [
     "https://www.miichigan.gov/49380/6tnfd09/736450dj9"
 ]
 
-for url in test_urls:
-    if validator.is_whitelisted(url):
-        print(f"{url} is whitelisted")
-    else:
-        print(f"{url} is not whitelisted")
+# for url in test_urls:
+#     if validator.is_whitelisted(url):
+#         print(f"{url} is whitelisted")
+#     else:
+#         print(f"{url} is not whitelisted")
+
+if __name__ == "__main__":
+    while True:
+        url_input = input("Enter the URL: ")
+        if validator.is_whitelisted(url_input):
+            print(f"{url_input} is whitelisted")
+        else:
+            print(f"{url_input} is not whitelisted")
+        if url_input == "exit":
+            break
