@@ -1,18 +1,21 @@
-import re
+from urllib.parse import urlparse, urlunparse
 
 class ClickRedirectionValidator:
     def __init__(self, whitelist):
         self.whitelist = whitelist
 
     def remove_dynamic_part(self, url):
-        # Remove dynamic parts of the URL after the domain name
-        # For example, convert https://example.com/page?param=value to https://example.com/
-        return re.sub(r'://[^/]+/', '://', url)
+        # Parse the URL
+        parsed_url = urlparse(url)
+
+        # Reconstruct the URL with only the scheme and netloc (domain)
+        return urlunparse((parsed_url.scheme, parsed_url.netloc, '', '', '', ''))
 
     def is_whitelisted(self, url):
         # Check if the domain name is whitelisted
         url_domain = self.remove_dynamic_part(url)
-        return any(url_domain.startswith(whitelisted_url) for whitelisted_url in self.whitelist)
+        return any(url_domain == self.remove_dynamic_part(whitelisted_url) for whitelisted_url in self.whitelist)
+
 
 # Example usage
 whitelist = [
