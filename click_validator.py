@@ -8,7 +8,7 @@ class ClickRedirectionValidator:
         # Parse the URL
         parsed_url = urlparse(url)
 
-        # Reconstruct the URL with only the scheme and netloc (domain)
+        # Reconstruct the URL with only the domain
         return urlunparse((parsed_url.scheme, parsed_url.netloc, '', '', '', ''))
 
     def is_whitelisted(self, url):
@@ -16,8 +16,7 @@ class ClickRedirectionValidator:
         url_domain = self.remove_dynamic_part(url)
         return any(url_domain == self.remove_dynamic_part(whitelisted_url) for whitelisted_url in self.whitelist)
 
-
-# Example usage
+# Example whitelist
 whitelist = [
     "https://www.gvsu.edu/",
     "https://www.nvidia.com/",
